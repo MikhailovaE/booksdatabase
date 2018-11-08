@@ -1,28 +1,28 @@
-package com.spbu.math.booksdatabase;
+package proj.Katiko.MyMVC;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Author {
-
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
     private String firstName;
     private String lastName;
-    private String email;
-    @ManyToMany
-    private Genre genres;
+    private String yearOfBirth;
 
     public Author() {
         super();
     }
 
-    public Author(String firstName, String lastName, String email,
-                     Genre genres) {
+    public Author(String firstName, String lastName, String yearOfBirth) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
-        this.genres = genres;
+        this.yearOfBirth = yearOfBirth;
     }
 
     public long getId() {
@@ -49,20 +49,13 @@ public class Author {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getYearOfBirth() {
+        return yearOfBirth;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Genre getGenres() {
-        return genres;
-    }
-
-    public void setGenres(Genre genres) {
-        this.genres = genres;
+    public void setYearOfBirth(String yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
     }
 
 }
+
