@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 public class MyMvcApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MyMvcApplication.class, args);
+
+	    SpringApplication.run(MyMvcApplication.class, args);
 	}
 }

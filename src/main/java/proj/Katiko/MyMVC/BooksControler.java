@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class AuthorController {
+public class BooksControler {
 
     @Autowired
-    BookRepository repository;
+    private BookRepository repository;
 
     // @Autowired
     // AuthorRepository authorRepository;
@@ -32,9 +32,11 @@ public class AuthorController {
         return "book";
     }
 
-    @RequestMapping(value="/book",method=RequestMethod.POST)
+    @RequestMapping(value="/AddBook",method=RequestMethod.POST)
     public String booksAdd(@RequestParam String name,
-                           @RequestParam String year, @RequestParam String size, Model model) {
+                           @RequestParam String year,
+                           @RequestParam String size,
+                           Model model) {
         Book newBook = new Book();
         newBook.setName(name);
         newBook.setYear(year);
@@ -44,4 +46,11 @@ public class AuthorController {
         model.addAttribute("book", newBook);
         return "redirect:/book/" + newBook.getId();
     }
+    @RequestMapping(value = "/deleteBook", method = RequestMethod.POST)
+    public String deleteBook(@PathVariable String name,
+                              Model model) {
+        return null;
+    }
+
+
 }
