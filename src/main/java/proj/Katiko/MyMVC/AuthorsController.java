@@ -22,7 +22,7 @@ public class AuthorsController {
 
     }
 
-    @RequestMapping(value = "/updateAuthor", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateArtist", method = RequestMethod.POST)
     public void updateArtist(@PathVariable String firstName,
                              @PathVariable String secondName,
                              @PathVariable String yearOfBirth,
@@ -30,14 +30,14 @@ public class AuthorsController {
 
     }
 
-    @RequestMapping(value = "/deleteAuthor", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteArtist", method = RequestMethod.POST)
     public void deleteArtist(@PathVariable String firstName,
                              @PathVariable String secondName,
                              Model model) {
 
     }
 
-    @RequestMapping(value = "/getAuthorByName", method = RequestMethod.POST)
+    @RequestMapping(value = "/getArtistByName", method = RequestMethod.POST)
     public void getArtistByName(@PathVariable String firstName,
                                 @PathVariable String secondName,
                                 Model model) {}
