@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Add Author</title>
+    <title>Add Book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link rel="stylesheet" href="../static/bootstrap.min.css" media="screen"/>
@@ -45,30 +45,30 @@
     <div class="page-header" id="banner">
         <div class="row">
             <div class="col-lg-8 col-md-7 col-sm-6">
-                <h1>Add Author</h1>
+                <h1>Add Book</h1>
 
-                <form class="form-horizontal" th:action="@{/book/{id}/author(id=${book.id})}" method="post" enctype="multipart/form-data" >
+                <form class="form-horizontal" >
                     <fieldset>
                         <div class="form-group">
                             <fieldset disabled="">
-                                <label class="control-label" for="disabledInput">* First name</label>
-                                <input class="form-control" id="disabledInput" type="text" placeholder="Write the Fname here..." disabled="">
+                                <label class="control-label" for="disabledInput">* Name </label>
+                                <input class="form-control" id="disabledInput" type="text" placeholder="Write the Name here..." disabled="">
                             </fieldset>
                         </div>
                         <div class="form-group">
-                        <fieldset disabled="">
-                            <label class="control-label" for="disabledInput">* Last name</label>
-                            <input class="form-control" id="disabledInput" type="text" placeholder="Write the Lname here..." disabled="">
-                        </fieldset>
-                    </div>
+                            <fieldset disabled="">
+                                <label class="control-label" for="disabledInput"> Year</label>
+                                <input class="form-control" id="disabledInput" type="text" placeholder="Write the year here..." disabled="">
+                            </fieldset>
+                        </div>
                         <div class="form-group">
                             <fieldset disabled="">
-                                <label class="control-label" for="disabledInput">Date of birth:</label>
-                                <input class="form-control" id="disabledInput" type="text" placeholder="Write the date here..." disabled="">
+                                <label class="control-label" for="disabledInput">Size</label>
+                                <input class="form-control" id="disabledInput" type="text" placeholder="Write the size here..." disabled="">
                             </fieldset>
                         </div>
                     </fieldset>
-                    <input type="submit" value="Add Author"/>
+                    <input type="submit" value="Add Book"/>
                 </form>
                 <div class="alert alert-dismissible alert-info">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>

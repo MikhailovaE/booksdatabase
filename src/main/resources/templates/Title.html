@@ -1,39 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <link rel="stylesheet" href="/bootstrap.min.css" media="screen"/>
+    <link rel="stylesheet" href="../static/bootstrap.min.css" media="screen"/>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Books</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="Title.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="AuthorList.html">Author List</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Book.html">Book</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="Author.html">Author</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="AddBook.html">Add Book</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="AddAuthor.html">Add Author</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div class="jumbotron">
+    <h1 class="display-3">Hello, world!</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
+</div>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col"> Name</th>
+        <th scope="col"> Year</th>
+        <th scope="col"> Size</th>
+        <th scope="col"> Author</th>
+        <th scope="col"> Genre</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="table-info">
+    <tr th:each="book : ${book}">
+        <td th:text="${book.Name}"></td>
+        <td th:text="${book.Year}"></td>
+        <td th:text="${book.size}"></td>
+        <td th:text="${book.Author}"></td>
+        <td th:text="${book.Genre}"></td>
+
+    </tr>
+    </tbody>
+
+    <div>
+        <ul class="pagination pagination-sm">
+            <li class="page-item disabled">
+                <a class="page-link" href="#">&laquo;</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">4</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">5</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+
+</table>
+</table>
 </body>
 </html>
