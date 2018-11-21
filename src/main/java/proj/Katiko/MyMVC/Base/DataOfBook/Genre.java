@@ -1,4 +1,4 @@
-package proj.Katiko.MyMVC;
+package proj.Katiko.MyMVC.Base.DataOfBook;
 
     import java.io.Serializable;
 

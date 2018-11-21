@@ -1,4 +1,4 @@
-package proj.Katiko.MyMVC;
+package proj.Katiko.MyMVC.Base.DataOfBook;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,10 +1,8 @@
-package proj.Katiko.MyMVC;
+package proj.Katiko.MyMVC.Base.Repository;
 
-import java.util.List;
-
+import proj.Katiko.MyMVC.Base.DataOfBook.Author;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AuthorRepository extends CrudRepository<Author, Long> {
-    public List<Author> findByLabel(String label);
 }
 
