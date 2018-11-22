@@ -12,7 +12,7 @@ import proj.Katiko.MyMVC.Base.Repository.AuthorRepository;
 public class AuthorsController {
 
     @Autowired
-    private AuthorRepository repository;
+     AuthorRepository authorRepository;
 
     @RequestMapping(value = "/addAuthor", method = RequestMethod.POST)
     public void addArtist(@PathVariable String firstName,
@@ -22,23 +22,27 @@ public class AuthorsController {
 
     }
 
-    @RequestMapping(value = "/updateArtist", method = RequestMethod.POST)
-    public void updateArtist(@PathVariable String firstName,
+    @RequestMapping(value = "/author", method = RequestMethod.GET)
+    public String addAuthorPage() {
+        return "AddAuthor";
+    }
+
+   /* @RequestMapping(value = "/updateAuthor", method = RequestMethod.POST)
+    public void updateAuthor(@PathVariable String firstName,
                              @PathVariable String secondName,
                              @PathVariable String yearOfBirth,
                              Model model) {
 
-    }
+    }*/
 
-    @RequestMapping(value = "/deleteArtist", method = RequestMethod.POST)
-    public void deleteArtist(@PathVariable String firstName,
+    @RequestMapping(value = "/deleteAuthor", method = RequestMethod.POST)
+    public void deleteAuthor(@PathVariable String firstName,
                              @PathVariable String secondName,
                              Model model) {
-
     }
 
-    @RequestMapping(value = "/getArtistByName", method = RequestMethod.POST)
-    public void getArtistByName(@PathVariable String firstName,
+    @RequestMapping(value = "/getAuthorByName", method = RequestMethod.POST)
+    public void getAuthorByName(@PathVariable String firstName,
                                 @PathVariable String secondName,
                                 Model model) {}
 }

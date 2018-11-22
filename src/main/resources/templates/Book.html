@@ -35,14 +35,31 @@
                 <a class="nav-link" href="AddAuthor.html">Add Author</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
 </nav>
 
-<h1>Book</h1>
+<div class="container">
+    <div class="page-header" id="banner">
+        <div class="row">
+            <div class="col-lg-8 col-md-7 col-sm-6">
+                <h1>Book</h1>
+
+                <div class="card mb-3">
+                    <h3 class="card-header" th:action="@{/book}">Book name</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Information about the book:</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li th:action="@{/yearBook}" class="list-group-item">Year of issue :</li>
+                    <li th:action="@{/sizeBook}" class="list-group-item">Number of pages:</li>
+                    <li th:action="@{/authorBook}" class="list-group-item">Author:</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>

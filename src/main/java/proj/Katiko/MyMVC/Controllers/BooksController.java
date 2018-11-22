@@ -11,28 +11,13 @@ import proj.Katiko.MyMVC.Base.DataOfBook.Book;
 import proj.Katiko.MyMVC.Base.Repository.BookRepository;
 
 @Controller
-public class BooksControler {
+public class BooksController {
 
     @Autowired
-    private BookRepository repository;
+    BookRepository bookRepository;
 
-    // @Autowired
-    // AuthorRepository authorRepository;
-
-    @RequestMapping("/book/{id}")
-    public String book(@PathVariable Long id, Model model) {
-        model.addAttribute("book", repository.findById(id));
-        return "book";
-    }
-
-    @RequestMapping(value="/book",method=RequestMethod.GET)
-    public String bookList(Model model) {
-        model.addAttribute("book", repository.findAll());
-        return "book";
-    }
-
-    @RequestMapping(value="/AddBook",method=RequestMethod.POST)
-    public String booksAdd(@RequestParam String name,
+    @RequestMapping(value="/createBook",method=RequestMethod.POST)
+    public String addBook(@RequestParam String name,
                            @RequestParam String year,
                            @RequestParam String size,
                            Model model) {
@@ -40,16 +25,22 @@ public class BooksControler {
         newBook.setName(name);
         newBook.setYear(year);
         newBook.setSize(size);
-        repository.save(newBook);
+        bookRepository.save(newBook);
 
         model.addAttribute("book", newBook);
         return "redirect:/book/" + newBook.getId();
     }
-    @RequestMapping(value = "/deleteBook", method = RequestMethod.POST)
-    public String deleteBook(@PathVariable String name,
-                              Model model) {
-        return null;
+
+    @RequestMapping(value = "/addBook", method = RequestMethod.GET)
+    public String addBookPage() {
+
+        return "AddBook";
     }
 
+    @RequestMapping(value = "/deleteBook", method = RequestMethod.POST)
+    public String deleteBook(@PathVariable String name,
+                             Model model) {
+        return null;
+    }
 
 }
