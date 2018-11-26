@@ -4,7 +4,7 @@
     <title>Author List</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <link rel="stylesheet" href="../static/bootstrap.min.css" media="screen"/>
+    <link rel="stylesheet" href="/bootstrap.min.css" media="screen"/>
 </head>
 
 <body>
@@ -17,45 +17,52 @@
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="Title.html">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="AuthorList.html">Author List</a>
+                <a class="nav-link" href="/title">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="AddBook.html">Add Book</a>
+                <a class="nav-link" href="/authorList">Author List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="AddAuthor.html">Add Author</a>
+                <a class="nav-link " href="/addBook">Add Book</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/addAuthor">Add Author</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
 </nav>
 
-<h1>Author List</h1>
+<div class="container">
+    <div class="page-header" id="banner">
+        <div class="row">
+            <div class="col-lg-8 col-md-7 col-sm-6">
+                <h1>Author List</h1>
 
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th scope="col"> First Name</th>
-        <th scope="col"> Last Name </th>
-        <th scope="col">Year of birth</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="table-info">
-    <tr th:each="book : ${book}">
-        <td th:text="${author.FirstName}"></td>
-        <td th:text="${author.LastName}"></td>
-        <td th:text="${author.YearOfBirth}"></td>
-    </tr>
-    </tbody>
-</table>
-
-
+                <form class="form-horizontal" th:action="@{/readAuthor}" method="post" enctype="multipart/form-data" >
+                    <fieldset>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col"> First Name</th>
+                                <th scope="col"> Last Name </th>
+                                <th scope="col">Year of birth</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="table-info">
+                            <tr th:each="book : ${book}">
+                                <td th:text="${author.FirstName}"></td>
+                                <td th:text="${author.LastName}"></td>
+                                <td th:text="${author.YearOfBirth}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </fieldset>
+                    <input type="submit" value="Add Author"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -5,11 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import proj.Katiko.MyMVC.Base.DataOfBook.Author;
 import proj.Katiko.MyMVC.Base.Repository.AuthorRepository;
 
-@RestController
+@Controller
 public class AuthorsController {
 
      private AuthorRepository authorRepository;
@@ -18,7 +17,7 @@ public class AuthorsController {
         this.authorRepository = authorRepository;
     }
 
-    @RequestMapping(value = "/addAuthor", method = RequestMethod.POST)
+    @RequestMapping(value = "/createAuthor", method = RequestMethod.POST)
     public String addAuthor(
                           @PathVariable String firstName,
                           @PathVariable String lastName,
@@ -28,10 +27,22 @@ public class AuthorsController {
         return "redirect:/author";
     }
 
-    @RequestMapping(value = "/author")
+    @RequestMapping(value = "/addAuthor")
     public String addAuthorPage(Model model)
     {
         return "AddAuthor";
+    }
+
+    @RequestMapping(value = "/readAuthor", method = RequestMethod.POST)
+    public void readAuthor (@PathVariable String firstName,
+                                @PathVariable String secondName,
+                                Model model){
+    }
+
+    @RequestMapping(value = "/authorList")
+    public String getAuthors(Model model)
+    {
+        return "AuthorList";
     }
 
    /* @RequestMapping(value = "/updateAuthor", method = RequestMethod.POST)
@@ -48,9 +59,5 @@ public class AuthorsController {
                              Model model) {
     }
 
-    @RequestMapping(value = "/getAuthorByName", method = RequestMethod.POST)
-    public void getAuthorByName(@PathVariable String firstName,
-                                @PathVariable String secondName,
-                                Model model) {}
 }
 

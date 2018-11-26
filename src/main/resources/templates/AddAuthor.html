@@ -4,7 +4,7 @@
     <title>Add Author</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <link rel="stylesheet" href="../static/bootstrap.min.css" media="screen"/>
+    <link rel="stylesheet" href="/bootstrap.min.css" media="screen"/>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -15,17 +15,17 @@
 
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item ">
-                <a class="nav-link" href="Title.html">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link" href="/title">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="AuthorList.html">Author List</a>
+                <a class="nav-link" href="/authorList">Author List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="AddBook.html">Add Book</a>
+                <a class="nav-link " href="/addBook">Add Book</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="AddAuthor.html">Add Author</a>
+                <a class="nav-link active" href="/addAuthor">Add Author</a>
             </li>
         </ul>
     </div>
@@ -38,7 +38,7 @@
                 <h1>Add Author</h1>
 
                 <form class="form-horizontal" th:action="@{/addAuthor}" method="post" enctype="multipart/form-data" >
-                    <fieldset>
+                        <fieldset>
                         <div class="form-group">
                             <label class="col-lg-3 control-label">* First name</label>
                             <div class="col-lg-9">

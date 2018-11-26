@@ -1,11 +1,12 @@
 package proj.Katiko.MyMVC.Controllers;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import proj.Katiko.MyMVC.Base.DataOfBook.Book;
 import proj.Katiko.MyMVC.Base.Repository.BookRepository;
 
-@RestController
+@Controller
 public class BooksController {
 
 
@@ -14,9 +15,13 @@ public class BooksController {
     public BooksController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
+    @RequestMapping (value = "/title",method = RequestMethod.GET)
+      public String title (){
+        return "Title";
+    }
 
     @RequestMapping(value="/createBook",method=RequestMethod.POST)
-    public String addBook(@RequestParam String name,
+    public String addBook(@ModelAttribute String name,
                            @RequestParam String year,
                            @RequestParam String size,
                            Model model) {
@@ -27,7 +32,7 @@ public class BooksController {
         bookRepository.save(newBook);
 
         model.addAttribute("book", newBook);
-        return "redirect:/book/" + newBook.getId();
+        return "redirect:/book/";
     }
 
     @RequestMapping(value = "/addBook", method = RequestMethod.GET)

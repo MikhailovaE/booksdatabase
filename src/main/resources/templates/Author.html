@@ -4,7 +4,7 @@
     <title>Author</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-    <link rel="stylesheet" href="../static/bootstrap.min.css" media="screen"/>
+    <link rel="stylesheet" href="/bootstrap.min.css" media="screen"/>
 </head>
 
 <body>
@@ -38,7 +38,9 @@
             <div class="col-lg-8 col-md-7 col-sm-6">
                 <h1>Author</h1>
 
-                <div class="card mb-3">
+                <form class="form-horizontal" th:action="@{/readAuthors}" method="post" enctype="multipart/form-data" >
+                    <fieldset>
+                    <div class="card mb-3">
                     <h3 class="card-header" th:action="@{/author}">Author name</h3>
                 </div>
                 <div class="card-body">
@@ -49,7 +51,8 @@
                     <li th:action="@{/lastName}" class="list-group-item">Last name:</li>
                     <li th:action="@{/yearOfBirth}" class="list-group-item">Year of birth:</li>
                 </ul>
-            </div>
+                    </fieldset>
+            </form>
         </div>
     </div>
 </div>
