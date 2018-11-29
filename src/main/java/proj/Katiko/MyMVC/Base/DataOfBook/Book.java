@@ -8,20 +8,20 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private String name;
+    private long idBook;
+    private String bookName;
     private String year;
     private String size;
-    @ManyToMany
-    private List<Author> author;
+    //@ManyToMany
+    //private List<Author> author;
 
 
     public Book(String name, String year, String size,
                 List<Author> author) {
-        this.name = name;
+        this.bookName = name;
         this.year = year;
         this.size = size;
-        this.author = author;
+       // this.author = author;
     }
 
     public Book() {
@@ -29,19 +29,19 @@ public class Book {
     }
 
     public long getId() {
-        return id;
+        return idBook;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.idBook = id;
     }
 
     public String getName() {
-        return name;
+        return bookName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.bookName = name;
     }
 
     public String getYear() {
@@ -60,7 +60,7 @@ public class Book {
         this.size = size;
     }
 
-    public List<Author> getAuthor() {
+   /* public List<Author> getAuthor() {
         return author;
     }
 
@@ -76,7 +76,7 @@ public class Book {
         }
         return false;
 
-    }
+    }*/
 }
 
 

@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="book" type="proj.Katiko.MyMVC.Base.DataOfBook.Book"*/-->
+<!--/*@thymesVar id="books" type="java.util.List<Book>"*/-->
+<!--/*@thymesVar id="genre" type="com.sun.tools.javac.code.Attribute.Enum"*/-->
 <head>
+
     <title>Title</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link rel="stylesheet" href="/bootstrap.min.css" media="screen"/>
 </head>
+<script type="text/javascript">
+    function confDel(){
+        if (confirm('Are you sure?'));
+    }
+</script>
 
 <body>
-<form  th:action="@{/Title}" method="post" enctype="multipart/form-data" >
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Books</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,38 +39,23 @@
                 <a class="nav-link active" href="/addAuthor">Add Author</a>
             </li>
         </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
     </div>
 </nav>
 
 <div class="jumbotron">
+    <div class="page-header" id="banner">
+    <div class="row">
+        <div class="col-lg-12 col-md-7 col-sm-6">
     <h1 class="display-3">MY LIBRARY</h1>
     <p class="lead">Hi, guys! On this site I want to share my favorite books. This library is made up of books that I have read in the last 3 years.</p>
     <hr class="my-4">
     <p>In addition to books, you can find some information about the author and the year. I hope you'll like it. Enjoy!</p>
 </div>
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th scope="col"> Name</th>
-        <th scope="col"> Year</th>
-        <th scope="col"> Size</th>
-        <th scope="col"> Author</th>
-        <th scope="col"> Genre</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="table-info">
-    <tr th:each="book : ${book}">
-        <td th:text="${book.Name}"></td>
-        <td th:text="${book.Year}"></td>
-        <td th:text="${book.size}"></td>
-        <td th:text="${book.Author}"></td>
-        <td th:text="${book.Genre}"></td>
-
-    </tr>
-    </tbody>
-
-    <div>
+        <div>
         <ul class="pagination pagination-sm">
             <li class="page-item disabled">
                 <a class="page-link" href="#">&laquo;</a>
@@ -86,8 +80,27 @@
             </li>
         </ul>
     </div>
-</table>
-</table>
-</form>
+    <table class="table table-hover">
+    <thead>
+    <tr>
+        <th> Name</th>
+        <th> Year</th>
+        <th> Size</th>
+        <th> Author</th>
+        <th> Genre</th>
+    </tr>
+    </thead>
+    <tr class="table-info">
+    <tr th:each="book : ${books}">
+        <td th:text="${book.name}"></td>
+        <td th:text="${book.year}"></td>
+        <td th:text="${book.size}"></td>
+       <!-- <td th:text="${book.author}"></td>-->
+        <td th:text="${book.genre}"></td>
+    </tr>
+    </table>
+    </div>
+    </div>
+</div>
 </body>
 </html>

@@ -11,7 +11,7 @@ import proj.Katiko.MyMVC.Base.Repository.AuthorRepository;
 @Controller
 public class AuthorsController {
 
-     private AuthorRepository authorRepository;
+    private AuthorRepository authorRepository;
 
     public AuthorsController(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
@@ -19,29 +19,29 @@ public class AuthorsController {
 
     @RequestMapping(value = "/createAuthor", method = RequestMethod.POST)
     public String addAuthor(
-                          @PathVariable String firstName,
-                          @PathVariable String lastName,
-                          @PathVariable String yearOfBirth,
-                          Model model) {
+            @PathVariable String firstName,
+            @PathVariable String lastName,
+            @PathVariable String yearOfBirth,
+            Model model) {
         authorRepository.save(new Author(firstName, lastName, yearOfBirth));
         return "redirect:/author";
     }
 
     @RequestMapping(value = "/addAuthor")
-    public String addAuthorPage(Model model)
-    {
+    public String addAuthorPage(Model model) {
         return "AddAuthor";
     }
 
     @RequestMapping(value = "/readAuthor", method = RequestMethod.POST)
-    public void readAuthor (@PathVariable String firstName,
-                                @PathVariable String secondName,
-                                Model model){
+    public void readAuthor(@PathVariable String firstName,
+                           @PathVariable String secondName,
+                           Model model) {
     }
 
-    @RequestMapping(value = "/authorList")
-    public String getAuthors(Model model)
-    {
+    @RequestMapping(value = "/authorList", method = RequestMethod.GET)
+    public String getAuthors(Model model) {
+
+        model.addAttribute("authors", authorRepository.findAll());
         return "AuthorList";
     }
 

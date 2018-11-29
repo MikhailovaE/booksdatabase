@@ -1,15 +1,14 @@
 package proj.Katiko.MyMVC.Base.DataOfBook;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "authors")
 public class Author {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
+
     private String firstName;
     private String lastName;
     private String yearOfBirth;

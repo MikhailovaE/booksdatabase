@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import proj.Katiko.MyMVC.Base.DataOfBook.Book;
 import proj.Katiko.MyMVC.Base.Repository.BookRepository;
 
+import javax.swing.text.SimpleAttributeSet;
+
 @Controller
 public class BooksController {
 
@@ -16,8 +18,10 @@ public class BooksController {
         this.bookRepository = bookRepository;
     }
     @RequestMapping (value = "/title",method = RequestMethod.GET)
-      public String title (){
-        return "Title";
+      public String title (Model model)
+    {
+        model.addAttribute("book",bookRepository.findAll());
+        return "title";
     }
 
     @RequestMapping(value="/createBook",method=RequestMethod.POST)
