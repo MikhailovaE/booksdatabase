@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="book" type="proj.Katiko.MyMVC.Base.DataOfBook.Book"*/-->
 <!--/*@thymesVar id="books" type="java.util.List<Book>"*/-->
-<!--/*@thymesVar id="genre" type="com.sun.tools.javac.code.Attribute.Enum"*/-->
+<!--/*@thymesVar id="genre" type="proj.Katiko.MyMVC.Base.DataOfBook.Genre"*/-->
 <head>
 
     <title>Title</title>
@@ -95,8 +95,8 @@
         <td th:text="${book.name}"></td>
         <td th:text="${book.year}"></td>
         <td th:text="${book.size}"></td>
-       <!-- <td th:text="${book.author}"></td>-->
-        <td th:text="${book.genre}"></td>
+        <td th:text="${book.author.firstName} + ' ' + ${book.author.lastName}"></td>
+        <!--<td th:text="${book.genre}"></td>-->
     </tr>
     </table>
     </div>

@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="author" type="proj.Katiko.MyMVC.Base.DataOfBook.Author"*/-->
+<!--/*@thymesVar id="authors" type="java.util.List<Author>"*/-->
 <head>
     <title>Add Book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -45,18 +47,29 @@
                                 <input type="text" class="form-control" name="name">
                             </div>
                         </div>
+                        <div>
+                            <label class="col-lg-3 control-label">Author</label>
+                            <div class="col-lg-9">
+                                <select name="auth" class="form-control">
+                                    <option th:each="author : ${authors}"
+                                            th:value="${author.id}"
+                                            th:text="${author.firstName + ' ' + author.lastName}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Year</label>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" name="year">
                             </div>
                         </div>
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Size</label>
-                                <div class="col-lg-9">
-                                    <input type="text" class="form-control" name="size">
-                                </div>
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Size</label>
+                            <div class="col-lg-9">
+                                <input type="text" class="form-control" name="size">
                             </div>
+                        </div>
                     </fieldset>
                     <input type="submit" value="Create Book"/>
                 </form>

@@ -1,7 +1,6 @@
 package proj.Katiko.MyMVC.Base.DataOfBook;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Book {
@@ -12,16 +11,17 @@ public class Book {
     private String bookName;
     private String year;
     private String size;
-    //@ManyToMany
-    //private List<Author> author;
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Author author;
 
 
     public Book(String name, String year, String size,
-                List<Author> author) {
+                Author author) {
         this.bookName = name;
         this.year = year;
         this.size = size;
-       // this.author = author;
+        this.author = author;
     }
 
     public Book() {
@@ -60,14 +60,14 @@ public class Book {
         this.size = size;
     }
 
-   /* public List<Author> getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(List<Author> author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
-
+/*
     public boolean hasAuthor(Author author) {
         for (Author containedAuthor : getAuthor()) {
             if (containedAuthor.getId() == author.getId()) {
@@ -75,8 +75,8 @@ public class Book {
             }
         }
         return false;
-
-    }*/
+    }
+*/
 }
 
 
