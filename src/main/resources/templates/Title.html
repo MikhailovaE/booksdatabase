@@ -95,14 +95,15 @@
         <td th:text="${book.year}"></td>
         <td th:text="${book.size}"></td>
         <td th:text="${book.author.firstName} + ' ' + ${book.author.lastName}"></td>
-        <!--<td th:text="${book.genreString}"></td>-->
+        <td th:text="${book.genreString}"></td>
 
         <form th:action="@{/deleteBook}" th:method="delete" enctype="multipart/form-data">
-            <input type="hidden" name="idBook" th:text="${book.id}">
+            <input type="hidden" name="idBook" th:value="${book.id}">
             <td class="col-lg-2 col-lg-offset-3">
                 <input type="submit" class="btn btn-warning" value="Delete"/>
             </td>
         </form>
+
         <form th:action="@{/createBook}" th:method="update" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="update">
             <td class="col-lg-2 col-lg-offset-3">
