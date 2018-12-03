@@ -5,7 +5,6 @@ package proj.Katiko.MyMVC.Base.DataOfBook;
     public enum Genre implements Serializable {
         Crime,
         Mystery,
-        Distopia,
         Horror,
         Biograpy,
         Textbook,

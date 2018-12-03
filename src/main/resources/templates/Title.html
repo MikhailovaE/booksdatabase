@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="book" type="proj.Katiko.MyMVC.Base.DataOfBook.Book"*/-->
 <!--/*@thymesVar id="books" type="java.util.List<Book>"*/-->
+<!--/*@thymesVar id="author" type="proj.Katiko.MyMVC.Base.DataOfBook.Author"*/-->
 <!--/*@thymesVar id="genre" type="proj.Katiko.MyMVC.Base.DataOfBook.Genre"*/-->
 <head>
 
@@ -11,9 +12,7 @@
     <link rel="stylesheet" href="/bootstrap.min.css" media="screen"/>
 </head>
 <script type="text/javascript">
-    function confDel(){
-        if (confirm('Are you sure?'));
-    }
+
 </script>
 
 <body>
@@ -96,7 +95,21 @@
         <td th:text="${book.year}"></td>
         <td th:text="${book.size}"></td>
         <td th:text="${book.author.firstName} + ' ' + ${book.author.lastName}"></td>
-        <!--<td th:text="${book.genre}"></td>-->
+        <!--<td th:text="${book.genreString}"></td>-->
+
+        <form th:action="@{/deleteBook}" th:method="delete" enctype="multipart/form-data">
+            <input type="hidden" name="idBook" th:text="${book.id}">
+            <td class="col-lg-2 col-lg-offset-3">
+                <input type="submit" class="btn btn-warning" value="Delete"/>
+            </td>
+        </form>
+        <form th:action="@{/createBook}" th:method="update" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="update">
+            <td class="col-lg-2 col-lg-offset-3">
+                <input type="submit" class="btn btn-info" value="update"/>
+            </td>
+        </form>
+
     </tr>
     </table>
     </div>

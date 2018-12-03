@@ -17,6 +17,11 @@ public class BooksController {
 
     private BookRepository bookRepository;
     private AuthorRepository authorRepository;
+    private static final int BUTTONS_TO_SHOW = 3;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 5;
+    private static final int[] PAGE_SIZES = {5, 10};
+
 
     public BooksController(BookRepository bookRepository, AuthorRepository authorRepository) {
         this.bookRepository = bookRepository;
@@ -26,7 +31,7 @@ public class BooksController {
     public String root (Model model)
     {
         model.addAttribute("books",bookRepository.findAll());
-        return "title";
+        return "Title";
     }
 
     @RequestMapping (value = "/title",method = RequestMethod.GET)
@@ -36,7 +41,7 @@ public class BooksController {
     }
 
     @RequestMapping(value="/createBook",method=RequestMethod.POST)
-    public String addBook(@ModelAttribute String name,
+    public String addBook(@RequestParam String name,
                           @RequestParam String auth,
                           @RequestParam String year,
                           @RequestParam String size,
@@ -53,8 +58,8 @@ public class BooksController {
         newBook.setSize(size);
         bookRepository.save(newBook);
 
-        model.addAttribute("book", newBook);
-        return "redirect:/title";
+        model.addAttribute("books", newBook);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/addBook", method = RequestMethod.GET)
@@ -63,11 +68,12 @@ public class BooksController {
         return "AddBook";
     }
 
-    @RequestMapping(value = "/deleteBook", method = RequestMethod.POST)
-    public String deleteBook(@RequestParam Long id,
-                             Model model) {
-        bookRepository.deleteById(id);
-        return "redirect:/title";
+    @RequestMapping(value = "/deleteBook", method = RequestMethod.DELETE)
+    public String deleteBook(@RequestParam Long idBook,
+                             Model model)
+    {
+        bookRepository.deleteById(idBook);
+        return "redirect:/";
     }
 
 }

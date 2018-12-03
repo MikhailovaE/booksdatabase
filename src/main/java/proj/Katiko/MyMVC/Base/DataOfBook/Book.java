@@ -14,14 +14,16 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "id")
     private Author author;
+   // private Genre genre;
 
 
     public Book(String name, String year, String size,
-                Author author) {
+                Author author/*, Genre genre*/) {
         this.bookName = name;
         this.year = year;
         this.size = size;
         this.author = author;
+       // this.genre = genre;
     }
 
     public Book() {
@@ -67,6 +69,11 @@ public class Book {
     public void setAuthor(Author author) {
         this.author = author;
     }
+    /*
+    public String getGenreString() {
+        return this.genre.name();
+    }
+
 /*
     public boolean hasAuthor(Author author) {
         for (Author containedAuthor : getAuthor()) {
