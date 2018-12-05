@@ -22,7 +22,7 @@ public class Book {
 
 
     public Book(String name, String year, String size,
-                Author author/*, Genre genre*/) {
+                Author author, Genre genre) {
         this.bookName = name;
         this.year = year;
         this.size = size;
@@ -73,6 +73,10 @@ public class Book {
     public void setAuthor(Author author) {
         this.author = author;
     }
+
+    public Genre getGenre() { return genre; }
+
+    public void setGenre(Genre genre) { this.genre = genre; }
 
     public String getGenreString() {
         return this.genre.name();

@@ -18,7 +18,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Books</a>
+    <a class="navbar-brand" href="/title">Books</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,6 +27,9 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" href="/title">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/bookPage">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/authorList">Author List</a>
@@ -87,6 +90,8 @@
         <th> Size</th>
         <th> Author</th>
         <th> Genre</th>
+        <th> Delete</th>
+        <th> Update</th>
     </tr>
     </thead>
     <tr class="table-info">
@@ -97,16 +102,18 @@
         <td th:text="${book.author.firstName} + ' ' + ${book.author.lastName}"></td>
         <td th:text="${book.genreString}"></td>
 
+
         <form th:action="@{/deleteBook}" th:method="delete" enctype="multipart/form-data">
             <input type="hidden" name="idBook" th:value="${book.id}">
-            <td class="col-lg-2 col-lg-offset-3">
+            <td>
                 <input type="submit" class="btn btn-warning" value="Delete"/>
             </td>
-        </form>
+2        </form>
 
-        <form th:action="@{/createBook}" th:method="update" enctype="multipart/form-data">
-            <input type="hidden" name="_method" value="update">
-            <td class="col-lg-2 col-lg-offset-3">
+
+        <form th:action="@{/updateBook}" method="get" enctype="multipart/form-data">
+            <td>
+                <input type="hidden" th:value="${book.id}" name="id">
                 <input type="submit" class="btn btn-info" value="update"/>
             </td>
         </form>

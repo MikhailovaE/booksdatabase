@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="author" type="proj.Katiko.MyMVC.Base.DataOfBook.Author"*/-->
+<!--/*@thymesVar id="authors" type="java.util.List<Author>"*/-->
 <head>
     <title>Book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -32,6 +34,17 @@
     </div>
 </nav>
 
+<tbody>
+<tr th:each="book : ${books}">
+    <td th:text="${book.name}"></td>
+    <td th:text="${book.year}"></td>
+    <td th:text="${book.size}"></td>
+    <td th:text="${book.author.firstName}"></td>
+    <td th:text="${book.genreString}"></td>
+    <td class="col-lg-3 col-lg-offset-3>">
+    </td>
+</tbody>
+
 <div class="container">
     <div class="page-header" id="banner">
         <div class="row">
@@ -46,8 +59,20 @@
                 </div>
                 <ul class="list-group list-group-flush">
                     <li th:action="@{/yearBook}" class="list-group-item">Year of issue :</li>
+                    <td th:text="${book.year}"></td>
                     <li th:action="@{/sizeBook}" class="list-group-item">Number of pages:</li>
                     <li th:action="@{/authorBook}" class="list-group-item">Author:</li>
+                    <tbody>
+                    <tr th:each="book : ${books}">
+                        <td th:text="${book.name}"></td>
+
+                        <td th:text="${book.size}"></td>
+                        <td th:text="${book.author.firstName}"></td>
+                        <td th:text="${book.genreString}"></td>
+                        <td class="col-lg-3 col-lg-offset-3>">
+                        </td>
+                    </tbody>
+
                 </ul>
             </div>
         </div>
@@ -57,3 +82,6 @@
 
 </body>
 </html>
+
+
+
