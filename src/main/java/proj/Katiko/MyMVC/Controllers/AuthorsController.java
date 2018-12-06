@@ -1,5 +1,7 @@
 package proj.Katiko.MyMVC.Controllers;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +10,7 @@ import proj.Katiko.MyMVC.Base.DataOfBook.Book;
 import proj.Katiko.MyMVC.Base.DataOfBook.Genre;
 import proj.Katiko.MyMVC.Base.Repository.AuthorRepository;
 import proj.Katiko.MyMVC.Base.Repository.BookRepository;
-
+import proj.Katiko.MyMVC.View.Pager;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +19,9 @@ public class AuthorsController {
 
     private AuthorRepository authorRepository;
     private BookRepository bookRepository;
+    private static final int BUTTONS_TO_SHOW = 3;
+    private static final int INITIAL_PAGE = 0;
+    private static final int PAGE_SIZE = 7;
 
     public AuthorsController(AuthorRepository authorRepository, BookRepository bookRepository) {
         this.authorRepository = authorRepository;
@@ -50,9 +55,15 @@ public class AuthorsController {
     }
 
     @RequestMapping(value = "/authorList", method = RequestMethod.GET)
-    public String getAuthors(Model model) {
+    public String getAuthors(@RequestParam("page") Optional<Integer> page,
+                             Model model) {
 
-        model.addAttribute("authors", authorRepository.findAll());
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        Page<Author> authorsPage = authorRepository.findAll(new PageRequest(evalPage, PAGE_SIZE));
+        model.addAttribute("authorsPage", authorsPage);
+        model.addAttribute("pageSize", PAGE_SIZE);
+        model.addAttribute("pager", new Pager(authorsPage.getTotalPages(), authorsPage.getNumber(), BUTTONS_TO_SHOW));
+
         return "AuthorList";
     }
 
