@@ -2,6 +2,7 @@ package proj.Katiko.MyMVC.Controllers;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +31,24 @@ public class BooksController {
         this.authorRepository = authorRepository;
     }
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String root (@RequestParam("page") Optional<Integer> page,
+    public String root (@RequestParam(value = "page", required = false) Optional<Integer> page,
+                        @RequestParam(value = "sort", required = false) Optional<String> sort,
+                        @RequestParam(value = "asc", required = false) Optional<Boolean> asc,
                         Model model)
     {
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        boolean ascending = asc.orElse(true);
+        Page<Book> booksPage;
+        if (sort.isPresent() && sort.get() != "") {
+            booksPage = bookRepository.findAll(new PageRequest(evalPage, PAGE_SIZE, ascending ? Sort.Direction.ASC : Sort.Direction.DESC, sort.get()));
+            model.addAttribute("sortParam", sort.get());
+            model.addAttribute("sortAscending", ascending);
+        } else {
+            booksPage = bookRepository.findAll(new PageRequest(evalPage, PAGE_SIZE));
+            model.addAttribute("sortParam", "");
+            model.addAttribute("sortAscending", "");
+        }
 
-        Page<Book> booksPage = bookRepository.findAll(new PageRequest(evalPage, PAGE_SIZE));
         model.addAttribute("booksPage", booksPage);
         model.addAttribute("pageSize", PAGE_SIZE);
         model.addAttribute("pager", new Pager(booksPage.getTotalPages(), booksPage.getNumber(), BUTTONS_TO_SHOW));

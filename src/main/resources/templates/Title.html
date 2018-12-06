@@ -16,6 +16,12 @@
 
 </script>
 
+<style>
+    .sortArrow {
+        text-decoration: none;
+    }
+</style>
+
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -56,19 +62,19 @@
                 <ul class="pagination">
                     <li th:class="${booksPage.number == 0} ? disabled"><a
                             class="page-link"
-                            th:href="@{/(page=${booksPage.number})}">&laquo;</a>
+                            th:href="@{/(page=${booksPage.number},sort=${sortParam},asc=${sortAscending})}">&laquo;</a>
                     </li>
                     <li
                             th:class="${booksPage.number == (page - 1)} ? 'active pointer-disabled page-item' : 'page-item'"
                             th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
                         <a class="page-link"
-                           th:href="@{/(page=${page})}"
+                           th:href="@{/(page=${page},sort=${sortParam},asc=${sortAscending})}"
                            th:text="${page}"></a>
                     </li>
                     <li
                             th:class="${booksPage.number + 1 == booksPage.totalPages} ? disabled">
                         <a class="page-link"
-                           th:href="@{/(page=${booksPage.number + 2})}">&raquo;</a>
+                           th:href="@{/(page=${booksPage.number + 2},sort=${sortParam},asc=${sortAscending})}">&raquo;</a>
                     </li>
                 </ul>
             </div>
@@ -76,9 +82,9 @@
     <table class="table table-hover">
     <thead>
     <tr>
-        <th> Name</th>
-        <th> Year</th>
-        <th> Size</th>
+        <th><a class="sortArrow" th:href="@{/(page='1',sort='bookName',asc=true)}"> &uArr; </a> Name <a class="sortArrow" th:href="@{/(page='1',sort='bookName',asc=false)}"> &dArr; </a></th>
+        <th><a class="sortArrow" th:href="@{/(page='1',sort='year',asc=true)}"> &uArr; </a> Year <a class="sortArrow" th:href="@{/(page='1',sort='year',asc=false)}"> &dArr; </a></th>
+        <th><a class="sortArrow" th:href="@{/(page='1',sort='size',asc=true)}"> &uArr; </a> Size <a class="sortArrow" th:href="@{/(page='1',sort='size',asc=false)}"> &dArr; </a></th>
         <th> Author</th>
         <th> Genre</th>
         <th> Delete</th>
