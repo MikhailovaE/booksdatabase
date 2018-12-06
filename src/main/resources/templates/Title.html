@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="book" type="proj.Katiko.MyMVC.Base.DataOfBook.Book"*/-->
-<!--/*@thymesVar id="books" type="java.util.List<Book>"*/-->
+<!--/*@thymesVar id="booksPage" type="org.springframework.data.domain.Page"*/-->
+<!--/*@thymesVar id="pager" type="proj.Katiko.MyMVC.View.Pager"*/-->
 <!--/*@thymesVar id="author" type="proj.Katiko.MyMVC.Base.DataOfBook.Author"*/-->
 <!--/*@thymesVar id="genre" type="proj.Katiko.MyMVC.Base.DataOfBook.Genre"*/-->
 <head>
@@ -38,10 +39,6 @@
                 <a class="nav-link active" href="/addAuthor">Add Author</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
 </nav>
 
@@ -54,31 +51,28 @@
     <hr class="my-4">
     <p>In addition to books, you can find some information about the author and the year. I hope you'll like it. Enjoy!</p>
 </div>
-        <div>
-        <ul class="pagination pagination-sm">
-            <li class="page-item disabled">
-                <a class="page-link" href="#">&laquo;</a>
-            </li>
-            <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">4</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">5</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">&raquo;</a>
-            </li>
-        </ul>
-    </div>
+        <div class="row">
+            <div th:if="${booksPage.totalPages != 1}">
+                <ul class="pagination">
+                    <li th:class="${booksPage.number == 0} ? disabled"><a
+                            class="page-link"
+                            th:href="@{/(page=${booksPage.number})}">&laquo;</a>
+                    </li>
+                    <li
+                            th:class="${booksPage.number == (page - 1)} ? 'active pointer-disabled page-item' : 'page-item'"
+                            th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                        <a class="page-link"
+                           th:href="@{/(page=${page})}"
+                           th:text="${page}"></a>
+                    </li>
+                    <li
+                            th:class="${booksPage.number + 1 == booksPage.totalPages} ? disabled">
+                        <a class="page-link"
+                           th:href="@{/(page=${booksPage.number + 2})}">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     <table class="table table-hover">
     <thead>
     <tr>
@@ -93,7 +87,7 @@
     </tr>
     </thead>
     <tr class="table-info">
-    <tr th:each="book : ${books}">
+    <tr th:each="book : ${booksPage}">
         <td th:text="${book.name}"></td>
         <td th:text="${book.year}"></td>
         <td th:text="${book.size}"></td>
@@ -107,7 +101,6 @@
                 <input type="submit" class="btn btn-warning" value="Delete"/>
             </td>
        </form>
-
 
         <form th:action="@{/updateBook}" method="get" enctype="multipart/form-data">
             <td>

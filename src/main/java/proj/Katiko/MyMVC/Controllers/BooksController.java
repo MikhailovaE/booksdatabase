@@ -1,5 +1,7 @@
 package proj.Katiko.MyMVC.Controllers;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,9 +10,8 @@ import proj.Katiko.MyMVC.Base.DataOfBook.Book;
 import proj.Katiko.MyMVC.Base.DataOfBook.Genre;
 import proj.Katiko.MyMVC.Base.Repository.AuthorRepository;
 import proj.Katiko.MyMVC.Base.Repository.BookRepository;
+import proj.Katiko.MyMVC.View.Pager;
 
-import javax.swing.text.SimpleAttributeSet;
-import java.util.Arrays;
 import java.util.Optional;
 
 @Controller
@@ -21,8 +22,7 @@ public class BooksController {
     private AuthorRepository authorRepository;
     private static final int BUTTONS_TO_SHOW = 3;
     private static final int INITIAL_PAGE = 0;
-    private static final int INITIAL_PAGE_SIZE = 5;
-    private static final int[] PAGE_SIZES = {5, 10};
+    private static final int PAGE_SIZE = 7;
 
 
     public BooksController(BookRepository bookRepository, AuthorRepository authorRepository) {
@@ -30,9 +30,16 @@ public class BooksController {
         this.authorRepository = authorRepository;
     }
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String root (Model model)
+    public String root (@RequestParam("page") Optional<Integer> page,
+                        Model model)
     {
-        model.addAttribute("books",bookRepository.findAll());
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+        Page<Book> booksPage = bookRepository.findAll(new PageRequest(evalPage, PAGE_SIZE));
+        model.addAttribute("booksPage", booksPage);
+        model.addAttribute("pageSize", PAGE_SIZE);
+        model.addAttribute("pager", new Pager(booksPage.getTotalPages(), booksPage.getNumber(), BUTTONS_TO_SHOW));
+
         return "Title";
     }
 

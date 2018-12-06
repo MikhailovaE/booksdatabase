@@ -12,7 +12,7 @@
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Books</a>
+    <a class="navbar-brand" href="/title">Books</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,7 +41,7 @@
             <div class="col-lg-8 col-md-7 col-sm-6">
                 <h1>Author List</h1>
 
-                <form action="#" class="form-horizontal" th:action="@{/authorList}" method="post"  enctype="multipart/form-data" >
+                <form class="form-horizontal" th:action="@{/authorList}" method="post"  enctype="multipart/form-data" >
                     <fieldset>
                         <table class="table table-hover">
                             <thread>
