@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="book" type="proj.Katiko.MyMVC.Base.DataOfBook.Book"*/-->
-<!--/*@thymesVar id="books" type="java.util.List<Book>"*/-->
+<!--/*@thymesVar id="booksPage" type="org.springframework.data.domain.Page"*/-->
+<!--/*@thymesVar id="pager" type="proj.Katiko.MyMVC.View.Pager"*/-->
+<!--/*@thymesVar id="author" type="proj.Katiko.MyMVC.Base.DataOfBook.Author"*/-->
 <!--/*@thymesVar id="genre" type="proj.Katiko.MyMVC.Base.DataOfBook.Genre"*/-->
 <head>
 
@@ -11,15 +13,19 @@
     <link rel="stylesheet" href="/bootstrap.min.css" media="screen"/>
 </head>
 <script type="text/javascript">
-    function confDel(){
-        if (confirm('Are you sure?'));
-    }
+
 </script>
+
+<style>
+    .sortArrow {
+        text-decoration: none;
+    }
+</style>
 
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Books</a>
+    <a class="navbar-brand" href="/title">Books</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -39,10 +45,6 @@
                 <a class="nav-link active" href="/addAuthor">Add Author</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
 </nav>
 
@@ -55,48 +57,71 @@
     <hr class="my-4">
     <p>In addition to books, you can find some information about the author and the year. I hope you'll like it. Enjoy!</p>
 </div>
-        <div>
-        <ul class="pagination pagination-sm">
-            <li class="page-item disabled">
-                <a class="page-link" href="#">&laquo;</a>
-            </li>
-            <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">4</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">5</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">&raquo;</a>
-            </li>
-        </ul>
-    </div>
+        <div class="row">
+            <div th:if="${booksPage.totalPages != 1}">
+                <ul class="pagination">
+                    <li th:class="${booksPage.number == 0} ? disabled"><a
+                            class="page-link"
+                            th:href="@{/(page=${booksPage.number},sort=${sortParam},asc=${sortAscending})}">&laquo;</a>
+                    </li>
+                    <li
+                            th:class="${booksPage.number == (page - 1)} ? 'active pointer-disabled page-item' : 'page-item'"
+                            th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                        <a class="page-link"
+                           th:href="@{/(page=${page},sort=${sortParam},asc=${sortAscending})}"
+                           th:text="${page}"></a>
+                    </li>
+                    <li
+                            th:class="${booksPage.number + 1 == booksPage.totalPages} ? disabled">
+                        <a class="page-link"
+                           th:href="@{/(page=${booksPage.number + 2},sort=${sortParam},asc=${sortAscending})}">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     <table class="table table-hover">
     <thead>
     <tr>
-        <th> Name</th>
-        <th> Year</th>
-        <th> Size</th>
+        <th><a class="sortArrow" th:href="@{/(page='1',sort='bookName',asc=true)}"> &uArr; </a> Name <a class="sortArrow" th:href="@{/(page='1',sort='bookName',asc=false)}"> &dArr; </a></th>
+        <th><a class="sortArrow" th:href="@{/(page='1',sort='year',asc=true)}"> &uArr; </a> Year <a class="sortArrow" th:href="@{/(page='1',sort='year',asc=false)}"> &dArr; </a></th>
+        <th><a class="sortArrow" th:href="@{/(page='1',sort='size',asc=true)}"> &uArr; </a> Size <a class="sortArrow" th:href="@{/(page='1',sort='size',asc=false)}"> &dArr; </a></th>
         <th> Author</th>
         <th> Genre</th>
+        <th> Delete</th>
+        <th> Update</th>
+        <th> View</th>
     </tr>
     </thead>
     <tr class="table-info">
-    <tr th:each="book : ${books}">
+    <tr th:each="book : ${booksPage}">
         <td th:text="${book.name}"></td>
         <td th:text="${book.year}"></td>
         <td th:text="${book.size}"></td>
         <td th:text="${book.author.firstName} + ' ' + ${book.author.lastName}"></td>
-        <!--<td th:text="${book.genre}"></td>-->
+        <td th:text="${book.genreString}"></td>
+
+
+        <form th:action="@{/deleteBook}" th:method="delete" enctype="multipart/form-data">
+            <input type="hidden" name="idBook" th:value="${book.id}">
+            <td>
+                <input type="submit" class="btn btn-warning" value="Delete"/>
+            </td>
+       </form>
+
+        <form th:action="@{/updateBook}" method="get" enctype="multipart/form-data">
+            <td>
+                <input type="hidden" th:value="${book.id}" name="id">
+                <input type="submit" class="btn btn-info" value="Update"/>
+            </td>
+        </form>
+
+        <form th:action="@{/viewBook}" method="get" enctype="multipart/form-data">
+            <td>
+                <input type="hidden" th:value="${book.id}" name="id">
+                <input type="submit" class="btn btn-success" value="View"/>
+            </td>
+        </form>
+
     </tr>
     </table>
     </div>

@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns="http://www.w3.org/1999/xhtml">
     <!--/*@thymesVar id="author" type="proj.Katiko.MyMVC.Base.DataOfBook.Author"*/-->
-    <!--/*@thymesVar id="authors" type="java.util.List<Author>"*/-->
+    <!--/*@thymesVar id="authorsPage" type="org.springframework.data.domain.Page"*/-->
+    <!--/*@thymesVar id="pager" type="proj.Katiko.MyMVC.View.Pager"*/-->
 
     <head>
     <title>Author List</title>
@@ -12,7 +13,7 @@
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Books</a>
+    <a class="navbar-brand" href="/title">Books</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -40,23 +41,60 @@
         <div class="row">
             <div class="col-lg-8 col-md-7 col-sm-6">
                 <h1>Author List</h1>
-
-                <form action="#" class="form-horizontal" th:action="@{/authorList}" method="post"  enctype="multipart/form-data" >
+                <div class="row">
+                    <div th:if="${authorsPage.totalPages != 1}">
+                        <ul class="pagination">
+                            <li th:class="${authorsPage.number == 0} ? disabled"><a
+                                    class="page-link"
+                                    th:href="@{/authorList(page=${authorsPage.number})}">&laquo;</a>
+                            </li>
+                            <li
+                                    th:class="${authorsPage.number == (page - 1)} ? 'active pointer-disabled page-item' : 'page-item'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                                <a class="page-link"
+                                   th:href="@{/authorList(page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li
+                                    th:class="${authorsPage.number + 1 == authorsPage.totalPages} ? disabled">
+                                <a class="page-link"
+                                   th:href="@{/authorList(page=${authorsPage.number + 2})}">&raquo;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <form class="form-horizontal" th:action="@{/authorList}" method="post"  enctype="multipart/form-data" >
                     <fieldset>
                         <table class="table table-hover">
                             <thread>
                             <tr>
-                                <th scope="col"> First Name</th>
-                                <th scope="col"> Last Name </th>
+                                <th> First Name</th>
+                                <th> Last Name </th>
                                 <th scope="col">Year of birth</th>
+                                <th> Delete</th>
+                                <th> Update</th>
                             </tr>
                             </thread>
                             <tbody>
                             <tr>
-                            <tr th:each="author :${authors}">
+                            <tr th:each="author :${authorsPage}">
                                 <td th:text="${author.firstName}"></td>
                                 <td th:text="${author.lastName}"></td>
                                 <td th:text="${author.yearOfBirth}"></td>
+
+                                <form th:action="@{/deleteAuthor}" th:method="delete" enctype="multipart/form-data">
+                                    <input type="hidden" name="id" th:value="${author.id}">
+                                    <td>
+                                        <input type="submit" class="btn btn-warning" value="Delete"/>
+                                    </td>
+                                </form>
+
+                                <form th:action="@{/updateAuthor}" method="get" enctype="multipart/form-data">
+                                    <td>
+                                        <input type="hidden" th:value="${author.id}" name="id">
+                                        <input type="submit" class="btn btn-info" value="Update"/>
+                                    </td>
+                                </form>
                             </tr>
                             </tbody>
                         </table>

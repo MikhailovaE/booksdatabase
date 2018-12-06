@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="book" type="proj.Katiko.MyMVC.Base.DataOfBook.Book"*/-->
 <head>
     <title>Book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -16,21 +17,22 @@
 
     <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item ">
-                <a class="nav-link" href="Title.html">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <a class="nav-link" href="/title">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="AuthorList.html">Author List</a>
+                <a class="nav-link" href="/authorList">Author List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="AddBook.html">Add Book</a>
+                <a class="nav-link " href="/addBook">Add Book</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="AddAuthor.html">Add Author</a>
+                <a class="nav-link active" href="/addAuthor">Add Author</a>
             </li>
         </ul>
     </div>
 </nav>
+
 
 <div class="container">
     <div class="page-header" id="banner">
@@ -39,16 +41,19 @@
                 <h1>Book</h1>
 
                 <div class="card mb-3">
-                    <h3 class="card-header" th:action="@{/book}">Book name</h3>
+                    <h3 class="card-header" th:text="${book.name}"></h3>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Information about the book:</p>
+                    <h4 class="card-text">Information about the book:</h4>
                 </div>
+                <h5>
                 <ul class="list-group list-group-flush">
-                    <li th:action="@{/yearBook}" class="list-group-item">Year of issue :</li>
-                    <li th:action="@{/sizeBook}" class="list-group-item">Number of pages:</li>
-                    <li th:action="@{/authorBook}" class="list-group-item">Author:</li>
+                    <li class="list-group-item" th:text="'Year of issue: ' + ${book.year}"></li>
+                    <li class="list-group-item" th:text="'Number of pages: ' + ${book.size}"></li>
+                    <li class="list-group-item" th:text="'Author: ' + ${book.author.firstName} + ' ' + ${book.author.lastName}"></li>
+                    <li class="list-group-item" th:text="'Genre: ' + ${book.genreString}"></li>
                 </ul>
+                </h5>
             </div>
         </div>
     </div>
@@ -57,3 +62,6 @@
 
 </body>
 </html>
+
+
+
