@@ -45,7 +45,7 @@ public class BooksController {
     @RequestMapping(value="/createBook",method=RequestMethod.POST)
     public String addBook(@RequestParam String name,
                           @RequestParam String gen,
-                          @RequestParam String auth,
+                          @RequestParam Long auth,
                           @RequestParam String year,
                           @RequestParam String size,
                           Model model) {
@@ -53,7 +53,7 @@ public class BooksController {
         newBook.setName(name);
         newBook.setGenre(Genre.valueOf(gen));
 
-        Optional<Author> author = authorRepository.findById(Long.parseLong(auth));
+        Optional<Author> author = authorRepository.findById(auth);
         if (author.isPresent()) {
             newBook.setAuthor(author.get());
         }
@@ -73,35 +73,42 @@ public class BooksController {
     }
 
     @RequestMapping(value = "/updateBook", method = RequestMethod.GET)
-    public String updateBookPage(Model model) {
+    public String updateBookPage(@RequestParam Long id,
+                                Model model) {
+        model.addAttribute("book", bookRepository.findById(id).get());
         model.addAttribute("authors", authorRepository.findAll());
         return "AddBook";
     }
-    public String updateBook (@RequestParam String name,
-                          @RequestParam String gen,
-                          @RequestParam String auth,
-                          @RequestParam String year,
-                          @RequestParam String size,
-                          Model model) {
-        Book newBook = new Book();
-        newBook.setName(name);
-        newBook.setGenre(Genre.valueOf(gen));
 
-        Optional<Author> author = authorRepository.findById(Long.parseLong(auth));
-        if (author.isPresent()) {
-            newBook.setAuthor(author.get());
+    @RequestMapping(value = "/updateBook", method = RequestMethod.POST)
+    public String updateBook(@RequestParam String name,
+                               @RequestParam String gen,
+                               @RequestParam Long auth,
+                               @RequestParam String year,
+                               @RequestParam String size,
+                               @RequestParam Long id,
+                               Model model) {
+        Optional<Book> bookOptional = bookRepository.findById(id);
+        if (bookOptional.isPresent()) {
+            Book book = bookOptional.get();
+            book.setName(name);
+            book.setGenre(Genre.valueOf(gen));
+            Optional<Author> authorOptional = authorRepository.findById(auth);
+            if (authorOptional.isPresent()) {
+                book.setAuthor(authorOptional.get());
+            }
+            book.setYear(year);
+            book.setSize(size);
+            bookRepository.save(book);
         }
 
-        newBook.setYear(year);
-        newBook.setSize(size);
-        bookRepository.save(newBook);
-
-        model.addAttribute("books", newBook);
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/bookPage", method = RequestMethod.GET)
-    public String BookPage(Model model) {
+    @RequestMapping(value = "/viewBook", method = RequestMethod.GET)
+    public String BookPage(@RequestParam Long id,
+                           Model model) {
+        model.addAttribute("book", bookRepository.findById(id).get());
         return "Book";
     }
 

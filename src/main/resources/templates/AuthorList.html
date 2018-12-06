@@ -12,7 +12,7 @@
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/title">Books</a>
+    <a class="navbar-brand" href="#">Books</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -46,9 +46,11 @@
                         <table class="table table-hover">
                             <thread>
                             <tr>
-                                <th scope="col"> First Name</th>
-                                <th scope="col"> Last Name </th>
+                                <th> First Name</th>
+                                <th> Last Name </th>
                                 <th scope="col">Year of birth</th>
+                                <th> Delete</th>
+                                <th> Update</th>
                             </tr>
                             </thread>
                             <tbody>
@@ -64,9 +66,13 @@
                                         <input type="submit" class="btn btn-warning" value="Delete"/>
                                     </td>
                                 </form>
-                                //TODO Предупреждать что удаление автора грозит поломкой страницы с книгами. Нужно удалять сразу все связанные книги
 
-
+                                <form th:action="@{/updateAuthor}" method="get" enctype="multipart/form-data">
+                                    <td>
+                                        <input type="hidden" th:value="${author.id}" name="id">
+                                        <input type="submit" class="btn btn-info" value="Update"/>
+                                    </td>
+                                </form>
                             </tr>
                             </tbody>
                         </table>

@@ -29,9 +29,6 @@
                 <a class="nav-link" href="/title">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/bookPage">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="/authorList">Author List</a>
             </li>
             <li class="nav-item">
@@ -92,6 +89,7 @@
         <th> Genre</th>
         <th> Delete</th>
         <th> Update</th>
+        <th> View</th>
     </tr>
     </thead>
     <tr class="table-info">
@@ -108,13 +106,20 @@
             <td>
                 <input type="submit" class="btn btn-warning" value="Delete"/>
             </td>
-2        </form>
+       </form>
 
 
         <form th:action="@{/updateBook}" method="get" enctype="multipart/form-data">
             <td>
                 <input type="hidden" th:value="${book.id}" name="id">
-                <input type="submit" class="btn btn-info" value="update"/>
+                <input type="submit" class="btn btn-info" value="Update"/>
+            </td>
+        </form>
+
+        <form th:action="@{/viewBook}" method="get" enctype="multipart/form-data">
+            <td>
+                <input type="hidden" th:value="${book.id}" name="id">
+                <input type="submit" class="btn btn-success" value="View"/>
             </td>
         </form>
 

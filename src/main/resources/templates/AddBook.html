@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="author" type="proj.Katiko.MyMVC.Base.DataOfBook.Author"*/-->
 <!--/*@thymesVar id="authors" type="java.util.List<Author>"*/-->
+<!--/*@thymesVar id="book" type="proj.Katiko.MyMVC.Base.DataOfBook.Book"*/-->
 <head>
     <title>Add Book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -39,12 +40,12 @@
             <div class="col-lg-8 col-md-7 col-sm-6">
                 <h1>Add Book</h1>
 
-                <form class="form-horizontal" th:action="@{/createBook}" method="post" enctype="multipart/form-data"  >
+                <form class="form-horizontal" th:action="${book != null} ? @{/updateBook} : @{/createBook}" method="post" enctype="multipart/form-data"  >
                     <fieldset>
                         <div class="form-group">
                             <label class="col-lg-3 control-label">* Name</label>
                             <div class="col-lg-9">
-                                <input type="text" class="form-control" name="name">
+                                <input type="text" class="form-control" name="name" th:value="${book != null} ? ${book.name} : ''">
                             </div>
                         </div>
                         <div>
@@ -72,17 +73,18 @@
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Year</label>
                             <div class="col-lg-9">
-                                <input type="text" class="form-control" name="year">
+                                <input type="text" class="form-control" name="year" th:value="${book != null} ? ${book.year}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-lg-3 control-label">Size</label>
                             <div class="col-lg-9">
-                                <input type="text" class="form-control" name="size">
+                                <input type="text" class="form-control" name="size" th:value="${book != null} ? ${book.size}">
                             </div>
                         </div>
                     </fieldset>
-                    <input type="submit" value="Create Book"/>
+                    <input type="hidden" class="form-control" name="id" th:if="${book != null}" th:value="${book.id}">
+                    <input type="submit"  class="btn btn-secondary" th:value="${book != null} ? 'Update book' : 'Create book'"/>
                 </form>
                 <div class="alert alert-dismissible alert-info">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
